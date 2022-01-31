@@ -1,0 +1,510 @@
+{
+	"info": {
+		"_postman_id": "fe891538-5155-48e6-a858-ccd37341433d",
+		"name": "bookmyconsultation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get User",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BMCAuthToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/users/test@gmasil.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"test@gmasil.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get User appointments",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BMCAuthToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/users/test@gmasil.com/appointments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"test@gmasil.com",
+						"appointments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\":\"fname\",\n    \"lastName\":\"lname\",\n    \"dob\":\"1903-08-06\",\n    \"mobile\":\"1234567890\",\n    \"password\":\"test\",\n    \"emailId\":\"test@gmasil.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"",
+							"postman.setGlobalVariable(\"BMCAuthToken\", jsonData.accessToken);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "test",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "test@gmasil.com",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BMCAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/auth/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all doctor",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BMCAuthToken}}",
+						"type": "text"
+					},
+					{
+						"key": "speciality",
+						"value": "CARDIOLOGIST",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"fname\",\n    \"lastName\": \"lname\",\n    \"dob\": \"1903-08-06\",\n    \"mobile\": \"1234567890\",\n    \"password\": \"test\",\n    \"emailId\": \"test@gmasil.com\",\n    \n    \"address\": {\n        \"addressLine1\": \"add1\",\n        \"addressLine2\": \"add1\",\n        \"city\": \"BHN\",\n        \"state\": \"TN\",\n        \"postCode\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors?speciality=CARDIOLOGIST",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors"
+					],
+					"query": [
+						{
+							"key": "speciality",
+							"value": "CARDIOLOGIST"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all speciality",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{BMCAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"fname\",\n    \"lastName\": \"lname\",\n    \"dob\": \"1903-08-06\",\n    \"mobile\": \"1234567890\",\n    \"password\": \"test\",\n    \"emailId\": \"test@gmasil.com\",\n    \n    \"address\": {\n        \"addressLine1\": \"add1\",\n        \"addressLine2\": \"add1\",\n        \"city\": \"BHN\",\n        \"state\": \"TN\",\n        \"postCode\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors/speciality",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors",
+						"speciality"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get doctors timeslots",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{BMCAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"fname\",\n    \"lastName\": \"lname\",\n    \"dob\": \"1903-08-06\",\n    \"mobile\": \"1234567890\",\n    \"password\": \"test\",\n    \"emailId\": \"test@gmasil.com\",\n    \n    \"address\": {\n        \"addressLine1\": \"add1\",\n        \"addressLine2\": \"add1\",\n        \"city\": \"BHN\",\n        \"state\": \"TN\",\n        \"postCode\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors/UUID-34/timeSlots?date=2021-05-26",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors",
+						"UUID-34",
+						"timeSlots"
+					],
+					"query": [
+						{
+							"key": "date",
+							"value": "2021-05-26"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a doctor",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{BMCAuthToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors/UUID-34",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors",
+						"UUID-34"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get an appointment",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{BMCAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"fname\",\n    \"lastName\": \"lname\",\n    \"dob\": \"1903-08-06\",\n    \"mobile\": \"1234567890\",\n    \"password\": \"test\",\n    \"emailId\": \"test@gmasil.com\",\n    \n    \"address\": {\n        \"addressLine1\": \"add1\",\n        \"addressLine2\": \"add1\",\n        \"city\": \"BHN\",\n        \"state\": \"TN\",\n        \"postCode\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/appointments/bc6a06cd-38d4-4283-88b2-d4708952f39a",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments",
+						"bc6a06cd-38d4-4283-88b2-d4708952f39a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add doctor",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{BMCAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"fname\",\n    \"lastName\": \"lname\",\n    \"dob\": \"1903-08-06\",\n    \"mobile\": \"1234567890\",\n    \"password\": \"test\",\n    \"emailId\": \"test@gmasil.com\",\n    \"pan\":\"EDLSS5080L\",\n    \"address\": {\n        \"addressLine1\": \"add1\",\n        \"addressLine2\": \"add1\",\n        \"city\": \"BHN\",\n        \"state\": \"TN\",\n        \"postCode\": \"123456\"\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/doctors",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"doctors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "book an appointment",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{BMCAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"doctorId\": \"UUID-34\",\n    \"doctorName\": \"Meghan jordan\",\n    \"userId\": \"test@gmasil.com\",\n    \"userName\": \"fname\",\n    \"userEmailId\": \"test@gmasil.com\",\n    \"timeSlot\": \"05PM-06PM\",\n    \"appointmentDate\": \"2021-05-26\",\n    \"createdDate\": \"\",\n    \"symptoms\": \"TEST\",\n    \"priorMedicalHistory\": \"NA\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/appointments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"appointments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post a rating",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"type": "text",
+						"value": "Bearer {{BMCAuthToken}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"appointmentId\":\"bc6a06cd-38d4-4283-88b2-d4708952f39a\",\n    \"doctorId\":\"UUID-34\",\n    \"rating\":\"3\",\n    \"comments\":\"Great Doctor\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,17 @@
+#selectHeading {
+  margin-top: 15px;
+  margin-right: 65px;
+  font-weight: 400;
+  text-align: left;
+  font-size: 1.1em;
+  color: #000;
+}
+
+.doctorListContainer {
+  width: 40%;
+  text-align: left;
+  padding: 20px;
+  margin: 15px;
+  cursor: pointer;
+  color: #000 !important;
+}
